@@ -16,13 +16,12 @@ int main() {
     pid_t pids[8]; // 8개의 프로세스 ID를 저장
     int client_num = 0;
 
-    // for문으로 fork를 7번 수행하면
+    // for문으로 fork를 7번 수행하면 자식이7개 생성
     for (int i = 0; i < 7; i++) {
         pid_t cPid = fork();
         checkForkError(cPid);
 
-        if (cPid == 0) {
-            // 자식 프로세스
+        if (cPid == 0) { //자식프로세스의 동작으로 자신의 동작을 수행하고 fork를 추가로 실행하지 않고 종료되도록 마지막에 exit처리
             client_num = i; // 각 클라이언트 번호
             printf("Client Process %d (PID: %d, Parent PID: %d) started.\n", client_num, getpid(), getppid());
             sleep(1); // 클라이언트 작업 시뮬레이션
